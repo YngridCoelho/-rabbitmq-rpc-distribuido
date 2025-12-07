@@ -32,6 +32,7 @@ def on_request(ch, method, props, body):
         ),
         body=json.dumps(result)
     )
+
     ch.basic_ack(method.delivery_tag)
 
 channel.basic_qos(prefetch_count=1)

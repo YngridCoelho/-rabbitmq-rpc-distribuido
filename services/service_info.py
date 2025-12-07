@@ -10,7 +10,10 @@ queue_name = "service_info"
 channel.queue_declare(queue=queue_name)
 
 def get_info(_):
-    return {"so": platform.system(), "versao": platform.version()}
+    return {
+        "so": platform.system(),
+        "versao": platform.version()
+    }
 
 def on_request(ch, method, props, body):
     result = get_info(None)
@@ -23,6 +26,7 @@ def on_request(ch, method, props, body):
         ),
         body=json.dumps(result)
     )
+
     ch.basic_ack(method.delivery_tag)
 
 channel.basic_qos(prefetch_count=1)
